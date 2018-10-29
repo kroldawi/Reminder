@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block app_content %}    
+    <h1>Here's what's comming</h1>
+
+    <table>
+        <tr>
+            <th width="200px">What</th><th width="100px">When</th><th width="100px">Recurring</th><th width="100px">Days left</th>
+        </tr>
+        {% for item in items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.when }}</td>
+                <td>{{ item.recurring }}</td>
+                <td>{{ item.days_left }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <table>
+        <tr>
+            <th width="200px">What</th><th width="100px">When</th><th width="100px">Recurring</th>
+        </tr>
+        {% for item in items1 %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.when }}</td>
+                <td>{{ item.recurring }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+{% endblock %}

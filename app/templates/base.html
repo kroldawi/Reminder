@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>Reminder</title>
+    </head>
+
+    <body>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('add_item') }}">Add item</a>
+        <hr>
+
+        {% block app_content %}{% endblock %}
+    </body>
+</html>
