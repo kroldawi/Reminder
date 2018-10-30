@@ -8,3 +8,6 @@ class AddItemForm(FlaskForm):
     when = DateField('When', validators = [DataRequired()], format = '%Y-%m-%d')
     recurring = BooleanField('Recurring', default = 'checked')
     submit = SubmitField('Add')
+
+class DeleteItemForm(FlaskForm):
+    delete = SubmitField('Delete')
