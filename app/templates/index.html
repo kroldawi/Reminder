@@ -1,37 +1,8 @@
 {% extends "base.html" %}
 
 {% block app_content %}    
-    <h1>Here's what's comming</h1>
-
-    <table>
-        <tr>
-            <th width="200px">What</th><th width="100px">When</th><th width="100px">Recurring</th><th width="100px">Days left</th>
-        </tr>
-        {% for item in items %}
-            <tr>
-                <td>{{ item.name }}</td>
-                <td>{{ item.when }}</td>
-                <td>{{ item.recurring }}</td>
-                <td>{{ item.days_left }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-
-    <table>
-        <tr>
-            <th width="200px">What</th><th width="100px">When</th><th width="100px">Recurring</th><th>Delete?</th>
-        </tr>
-        {% for item in all_items %}
-            <tr>
-                <td>{{ item.name }}</td>
-                <td>{{ item.when }}</td>
-                <td>{{ item.recurring }}</td>
-                <td><form action="{{ url_for('delete_item', id=item.id) }}" method="POST"><p>{{ form.delete() }}</p></form></td>
-            </tr>
-        {% endfor %}
-    </table>
-
-    <h1>All events</h1>
+    
+    <h1>What's comming</h1>
     <table>
         <tr>
             <th width="200px">What</th><th width="100px">When</th><th width="100px">Recurring</th>
@@ -41,37 +12,6 @@
             <td>{{ event.name }}</td>
             <td>{{ event.when }}</td>
             <td>{{ event.recurring }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <h1>All tags</h1>
-    <table>
-        <tr>
-            <th width="50px">Id</th><th width="200px">Name</th>
-        </tr>
-        {% for tag in tags %}
-        <tr>
-            <td>{{ tag.id }}</td>
-            <td>{{ tag.name }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <h1>All things</h1>
-    <table>
-        <tr>
-            <th width="50px">Id</th><th width="200px">Name</th><th width="200px">Tags</th>
-        </tr>
-        {% for thing in things %}
-        <tr>
-            <td>{{ thing.id }}</td>
-            <td>{{ thing.name }}</td>
-            <td>
-                {% for tag in thing.tags %}
-                    {{ tag.name }} 
-                {% endfor %}
-            </td>
         </tr>
         {% endfor %}
     </table>

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>Add new event</h1>
+
+    <form action="" method="POST">
+        {{ add_form.hidden_tag() }}
+        <p>{{ add_form.name.label }}{{ add_form.name(size = 25) }}</p>
+        <p>{{ add_form.when.label }}{{ add_form.when(size = 25) }}</p>
+        <p>{{ add_form.recurring.label }}{{ add_form.recurring() }}</p>
+        <p>{{ add_form.submit() }}</p>
+    </form>
+
+    <h1>What events we have</h1>
+    <table>
+        <tr><th>Id</th><th>Name</th><th>When</th><th>Recurring</th></tr>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.name }}</td>
+                <td>{{ event.when }}</td>
+                <td>{{ event.recurring }}</td>
+                <td>
+                    <form action="{{ url_for('.delete_event', id=event.id) }}" method="POST">
+                        {{ delete_form.submit() }}
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
