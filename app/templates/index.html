@@ -5,13 +5,14 @@
     <h1>What's comming</h1>
     <table>
         <tr>
-            <th width="200px">What</th><th width="100px">When</th><th width="100px">Recurring</th>
+            <th width="200px">What</th><th width="100px">When</th><th width="100px">Recurring</th><th>Days left</th>
         </tr>
         {% for event in events %}
         <tr>
             <td>{{ event.name }}</td>
             <td>{{ event.when }}</td>
             <td>{{ event.recurring }}</td>
+            <td>{{ event.days_left }}</td>
         </tr>
         {% endfor %}
     </table>
