@@ -5,19 +5,11 @@ from app.models import Thing, Tag
 class TagsDao():
 
     def get_db_tags_by_names(self, tag_names):
-        db_tags = []
-        for name in tag_names:
-            db_tags.append(Tag.query.filter_by(name = name).first())
-        
-        return db_tags
+        return [Tag.query.filter_by(name = name).first() for name in tag_names]
     
 
     def get_tag_name_tuples(self):
-        names = []
-        for db_tag in Tag.query.all():
-            names.append((db_tag.name, db_tag.name))
-        
-        return names
+        return [(db_tag.name, db_tag.name) for db_tag in Tag.query.all()]
 
 
 class ThingsDao():
@@ -27,10 +19,7 @@ class ThingsDao():
     def get_all_things(self):
         things = []
         for db_thing in Thing.query.all():
-            tags = ''
-            if db_thing.tags:
-                for tag in db_thing.tags:
-                    tags += tag.name + ' '
+            tags = ' '.join(tag.name for tag in db_thing.tags)
 
             things.append(
                 {'name': db_thing.name

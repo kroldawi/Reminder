@@ -10,5 +10,6 @@ def index():
     index_dao = IndexDao()
 
     return render_template('index.html' \
-        , events = index_dao.get_for_this_year())
+        , events = index_dao.get_for_this_year() \
+        , todos = index_dao.get_todos())
 

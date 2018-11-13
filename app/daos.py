@@ -7,12 +7,18 @@ from app.models import Event, Tag, Thing
 
 class IndexDao():
 
+    def get_todos(self):
+        tag = Tag.query.filter_by(name = 'TODO').first()
+        return [{'name': thing.name} for thing in tag.things]
+
+
     def get_for_this_year(self):
         events = []
         for db_event in Event.query.all():
             events.append({'name': db_event.name \
                 , 'when': db_event.when \
                 , 'recurring': db_event.recurring})
+    
         temp_events = []
 
         for event in events:
@@ -30,7 +36,9 @@ class IndexDao():
                     , 'recurring': event['recurring']}
                 
                 temp_events.append(temp_event)
-        
-        return temp_events
+
+        return sorted(temp_events, key = lambda event: event['days_left'])
+
+    
 
 

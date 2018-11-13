@@ -16,5 +16,12 @@
         </tr>
         {% endfor %}
     </table>
+
+    <h1>What's to do</h1>
+    <ul>
+        {% for thing in todos %}
+            <li>{{ thing.name }}</li>
+        {% endfor %}
+    </ul>
     
 {% endblock %}
