@@ -8,18 +8,20 @@
         <p>{{ add_form.name.label }}{{ add_form.name(size = 25) }}</p>
         <p>{{ add_form.when.label }}{{ add_form.when(size = 25) }}</p>
         <p>{{ add_form.recurring.label }}{{ add_form.recurring() }}</p>
+        <p>{{ add_form.tags.label }}{{ add_form.tags() }}</p>
         <p>{{ add_form.submit() }}</p>
     </form>
 
     <h1>What events we have</h1>
     <table>
-        <tr><th>Id</th><th>Name</th><th>When</th><th>Recurring</th></tr>
+        <tr><th>Id</th><th>Name</th><th>When</th><th>Recurring</th><th>Tags</th></tr>
         {% for event in events %}
             <tr>
                 <td>{{ event.id }}</td>
                 <td>{{ event.name }}</td>
                 <td>{{ event.when }}</td>
                 <td>{{ event.recurring }}</td>
+                <td>{{ event.tags }}</td>
                 <td>
                     <form action="{{ url_for('.delete_event', id=event.id) }}" method="POST">
                         {{ delete_form.submit() }}

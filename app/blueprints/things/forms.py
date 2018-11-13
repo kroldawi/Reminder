@@ -13,8 +13,8 @@ class FormFieldFactory():
 
 class AddThingForm(FlaskForm):
     name = StringField('Name', validators = [DataRequired()])
-    submit = SubmitField('Add')
     tags = SelectMultipleField('Tags', choices = [])
+    submit = SubmitField('Add')
 
 
 class DeleteThingForm(FlaskForm):

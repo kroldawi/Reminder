@@ -1,30 +1,35 @@
 from flask import render_template, url_for, redirect
 
 from app.blueprints.events import bp
-from app.blueprints.events.daos import EventsDao
-from app.blueprints.events.forms import AddEventForm, DeleteEventForm
+from app.blueprints.events.daos import EventsDao, TagsDao
+from app.blueprints.events.forms import AddEventForm, DeleteEventForm, FormFieldFactory
 
 
-DAO = EventsDao()
+EVENTS_DAO = EventsDao()
+TAGS_DAO = TagsDao()
+FORM_FACTORY = FormFieldFactory()
 
 @bp.route('/add_event', methods = ['GET', 'POST'])
 def add_event():
-    add_form = AddEventForm()
     delete_form = DeleteEventForm()
+    add_form = FORM_FACTORY.create_add_event_form(TAGS_DAO.get_tag_name_tuples())
 
     if add_form.validate_on_submit():
-        DAO.add_event({'name': add_form.name.data \
+        print(add_form.data)
+        EVENTS_DAO.add_event({'name': add_form.name.data \
             , 'when': add_form.when.data \
-            , 'recurring': add_form.recurring.data})
-        return redirect(url_for('index'))
+            , 'recurring': add_form.recurring.data \
+            , 'tags': add_form.tags.data})
+        return redirect(url_for('events.add_event'))
 
     return render_template('events.html' \
         , add_form = add_form \
         , delete_form = delete_form \
-        , events = DAO.get_all_events())
+        , events = EVENTS_DAO.get_all_events())
 
 
 @bp.route('/delete_event/<int:id>', methods=['POST'])
 def delete_event(id):
-    DAO.delete_event(id)
-    return redirect(url_for('add_event'))
+    EVENTS_DAO.delete_event(id)
+
+    return redirect(url_for('events.add_event'))

@@ -32,8 +32,9 @@ class ThingsDao():
                 for tag in db_thing.tags:
                     tags += tag.name + ' '
 
-            things.append({'name': db_thing.name \
-                , 'id': db_thing.id \
+            things.append(
+                {'name': db_thing.name
+                , 'id': db_thing.id
                 , 'tags': tags})
         
         return things
