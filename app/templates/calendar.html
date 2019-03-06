@@ -1,0 +1,10 @@
+<h1>Calendar</h1>
+<table border="3px">
+    {% for i in range(6) %}
+        <tr>
+            {% for j in range(7) %}
+                <td>{{ cal[i][j].day }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
