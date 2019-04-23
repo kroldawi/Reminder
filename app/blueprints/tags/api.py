@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, request, url_for
 
 from app.blueprints.tags import bp
 from app.blueprints.tags.daos import TagsDao
@@ -14,6 +14,8 @@ def add_tag():
 
     if add_form.validate_on_submit():
         DAO.add_tag({'name': add_form.name.data})
+        return redirect(url_for('tags.add_tag'))
+
     
     return render_template('tags.html' \
         , add_form = add_form \
@@ -25,4 +27,4 @@ def add_tag():
 def delete_tag(id):
     DAO.delete_tag(id)
 
-    return redirect(url_for('.add_tag'))
+    return redirect(request.referrer)

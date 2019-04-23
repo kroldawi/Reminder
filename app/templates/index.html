@@ -13,6 +13,11 @@
             <td>{{ event.when }}</td>
             <td>{{ event.recurring }}</td>
             <td>{{ event.days_left }}</td>
+            <td>
+                <form action="{{ url_for('events.delete_event', id=event.id) }}" method="POST">
+                    {{ delete_form.submit() }}
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </table>
@@ -20,8 +25,12 @@
     <h1>What's to do</h1>
     <ul>
         {% for thing in todos %}
-            <li>{{ thing.name }}</li>
+            <li>
+                {{ thing.name }}
+            </li>
         {% endfor %}
     </ul>
+
+    {% include "calendar.html" %}
     
 {% endblock %}

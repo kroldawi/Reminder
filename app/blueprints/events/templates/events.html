@@ -23,7 +23,7 @@
                 <td>{{ event.recurring }}</td>
                 <td>{{ event.tags }}</td>
                 <td>
-                    <form action="{{ url_for('.delete_event', id=event.id) }}" method="POST">
+                    <form action="{{ url_for('events.delete_event', id=event.id) }}" method="POST">
                         {{ delete_form.submit() }}
                     </form>
                 </td>

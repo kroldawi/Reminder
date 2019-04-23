@@ -17,7 +17,8 @@ class IndexDao():
         for db_event in Event.query.all():
             events.append({'name': db_event.name \
                 , 'when': db_event.when \
-                , 'recurring': db_event.recurring})
+                , 'recurring': db_event.recurring
+                , 'id': db_event.id})
     
         temp_events = []
 
@@ -33,7 +34,8 @@ class IndexDao():
                 temp_event = {'name': event['name'] \
                     , 'when': when_this_year \
                     , 'days_left': (when_this_year - date.today()).days \
-                    , 'recurring': event['recurring']}
+                    , 'recurring': event['recurring']
+                    , 'id': event['id']}
                 
                 temp_events.append(temp_event)
 
