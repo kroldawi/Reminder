@@ -1,0 +1,56 @@
+body {
+    background-color: #ffffff;
+    font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    color:#000000;
+}
+
+#header {
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+#footer {
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+#left {
+    width: 60%;
+    float: left;
+}
+
+#right {
+    width: 40%;
+    float: left;
+}
+
+table.calendar {
+    border: none;
+    border-spacing: 5px;
+}
+
+td.calendar {
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #BBBABA;
+    text-align: right;
+    vertical-align: top;
+    font-size: 25pt;
+    line-height: 25pt;
+    font-style: italic;
+}
+
+td.calendar_curr_month {
+}
+
+td.calendar_curr_month_holiday {
+    background-color: #6A6868;
+    color: #FFFFFF;
+}
+
+td.calendar_other_month {
+    background-color: #BBBABA;
+    color: #6A6868;
+}

@@ -1,4 +1,6 @@
 from flask import render_template, redirect, request, url_for
+from datetime import datetime
+from datetime import date, timedelta
 
 from app.blueprints.things import bp
 from app.blueprints.things.daos import ThingsDao, TagsDao
@@ -8,6 +10,12 @@ from app.blueprints.things.forms import DeleteThingForm, FormFieldFactory
 THINGS_DAO = ThingsDao()
 TAGS_DAO = TagsDao()
 FORM_FACTORY = FormFieldFactory()
+
+def get_cal(current_date):
+    first_day = date(current_date.year, current_date.month, 1)
+    first_day -= timedelta(days=first_day.isoweekday())
+    
+    return [[first_day + timedelta(days = i + j * 7) for i in range(7)] for j in range(6)]
 
 @bp.route('/add_thing', methods = ['GET', 'POST'])
 def add_thing():
@@ -19,11 +27,11 @@ def add_thing():
                 {'name': add_form.name.data, 'tags': add_form.tags.data})
         return redirect(url_for('things.add_thing'))
     
-    return render_template(
-            'things.html' 
-            , add_form = add_form 
-            , delete_form = delete_form 
-            , things = THINGS_DAO.get_all_things())
+    return render_template('things.html' \
+        , add_form = add_form \
+        , delete_form = delete_form 
+        , things = THINGS_DAO.get_all_things() \
+        , cal = get_cal(date(2019,4,2)))
 
 
 @bp.route('/delete_thing/<int:id>', methods = ['POST'])

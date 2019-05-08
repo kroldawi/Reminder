@@ -1,13 +1,19 @@
-<h1>Suka</h1>
-{{ events|length }}    
-
-<h1>Calendar</h1>
-<table border="3px">
-    {% for i in range(6) %}
-        <tr>
-            {% for j in range(7) %}
-                <td>{{ cal[i][j].day }}</td>
-            {% endfor %}
-        </tr>
-    {% endfor %}
-</table>
+<div>
+    <table class="calendar">
+        {% for i in range(6) %}
+            <tr>
+                {% for j in range(7) %}
+                    {% if cal[i][j].month == 4 %}
+                        {% if j > 4 %}
+                            <td class="calendar calendar_curr_month_holiday">{{ cal[i][j].day }}</td>
+                        {% else %}
+                            <td class="calendar calendar_curr_month">{{ cal[i][j].day }}</td>
+                        {% endif %}
+                    {% else %}
+                        <td class="calendar calendar_other_month">{{ cal[i][j].day }}</td>                    
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>

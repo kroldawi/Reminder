@@ -1,4 +1,6 @@
 from flask import render_template, redirect, request, url_for
+from datetime import datetime
+from datetime import date, timedelta
 
 from app.blueprints.events import bp
 from app.blueprints.events.daos import EventsDao, TagsDao
@@ -8,6 +10,12 @@ from app.blueprints.events.forms import AddEventForm, DeleteEventForm, FormField
 EVENTS_DAO = EventsDao()
 TAGS_DAO = TagsDao()
 FORM_FACTORY = FormFieldFactory()
+
+def get_cal(current_date):
+    first_day = date(current_date.year, current_date.month, 1)
+    first_day -= timedelta(days=first_day.isoweekday())
+    
+    return [[first_day + timedelta(days = i + j * 7) for i in range(7)] for j in range(6)]
 
 @bp.route('/add_event', methods = ['GET', 'POST'])
 def add_event():
@@ -24,7 +32,8 @@ def add_event():
     return render_template('events.html' \
         , add_form = add_form \
         , delete_form = delete_form \
-        , events = EVENTS_DAO.get_all_events())
+        , events = EVENTS_DAO.get_all_events() \
+        , cal = get_cal(date(2019,4,2)))
 
 
 @bp.route('/delete_event/<int:id>', methods=['POST'])
