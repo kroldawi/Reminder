@@ -1,19 +1,18 @@
-<div>
-    <table class="calendar">
-        {% for i in range(6) %}
-            <tr>
-                {% for j in range(7) %}
-                    {% if cal[i][j].month == 4 %}
-                        {% if j > 4 %}
-                            <td class="calendar calendar_curr_month_holiday">{{ cal[i][j].day }}</td>
-                        {% else %}
-                            <td class="calendar calendar_curr_month">{{ cal[i][j].day }}</td>
-                        {% endif %}
+<table class="calendar">
+    {% for i in range(6) %}
+        <tr>
+            {% for j in range(7) %}
+                {% if cal[i][j].month == 4 %}
+                    {% if j > 4 %}
+                        <td class="calendar calendar_curr_month_holiday">{{ cal[i][j].day }}</td>
                     {% else %}
-                        <td class="calendar calendar_other_month">{{ cal[i][j].day }}</td>                    
+                        <td class="calendar calendar_curr_month">{{ cal[i][j].day }}</td>
                     {% endif %}
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    </table>
-</div>
+                {% else %}
+                    <td class="calendar calendar_other_month">{{ cal[i][j].day }}</td>                    
+                {% endif %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+

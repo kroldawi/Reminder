@@ -12,13 +12,17 @@
             <a href="{{ url_for('events.add_event') }}">Add event</a>
         </div>
 
-        <div>
+        <div id="mid">
             <div id="left">
                 {% include "calendar.html" %}
             </div>
 
-            <div id="right">
+            <div id="middle">
                 {% block app_content %}{% endblock %}
+            </div>
+
+            <div id="right">
+                {% block app_content_right %}{% endblock %}
             </div>
         </div>
 

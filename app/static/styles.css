@@ -2,25 +2,38 @@ body {
     background-color: #ffffff;
     font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
     color:#000000;
+    box-sizing: border-box;
 }
 
 #header {
     border-bottom: 1px solid #eee;
     text-align: center;
+    float: initial;
 }
 
 #footer {
     border-top: 1px solid #eee;
     text-align: center;
+    float: initial;
+}
+
+#mid {
+    display: flex;
+    float: initial;
 }
 
 #left {
-    width: 60%;
+    width: 50%;
+    float: left;
+}
+
+#middle {
+    width: 30%;
     float: left;
 }
 
 #right {
-    width: 40%;
+    width: 20%;
     float: left;
 }
 

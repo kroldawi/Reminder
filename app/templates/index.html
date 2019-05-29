@@ -3,25 +3,19 @@
 {% block app_content %}    
     
     <h1>What's comming</h1>
-    <table>
-        <tr>
-            <th width="200px">What</th><th width="100px">When</th><th width="100px">Recurring</th><th>Days left</th>
-        </tr>
+    
+    <ul>
         {% for event in events %}
-        <tr>
-            <td>{{ event.name }}</td>
-            <td>{{ event.when }}</td>
-            <td>{{ event.recurring }}</td>
-            <td>{{ event.days_left }}</td>
-            <td>
-                <form action="{{ url_for('events.delete_event', id=event.id) }}" method="POST">
-                    {{ delete_form.submit() }}
-                </form>
-            </td>
-        </tr>
+    
+            {{ event.name }} in {{ event.days_left }} days ({{ event.when }})
+            <form action="{{ url_for('events.delete_event', id=event.id) }}" method="POST">
+                {{ delete_form.submit() }}
+            </form>
         {% endfor %}
-    </table>
+    </ul>
+{% endblock %}
 
+{% block app_content_right %}
     <h1>What's to do</h1>
     <ul>
         {% for thing in todos %}
@@ -30,5 +24,4 @@
             </li>
         {% endfor %}
     </ul>
-    
 {% endblock %}

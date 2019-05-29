@@ -1,21 +1,6 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    <h1>Add new thing</h1>
-
-    <form action="" method="POST">
-        {{ add_form.hidden_tag() }}
-        <p>
-            {{ add_form.name.label }}{{ add_form.name(size = 25) }}
-        </p>
-        <p>
-            {{ add_form.tags.label }}{{ add_form.tags() }}
-        </p>
-        <p>
-            {{ add_form.submit() }}
-        </p>
-    </form>
-
     <h1>What things we have</h1>
     <table>
         <tr><th>Id</th><th>Name</th><th>Tags</th></tr>
@@ -32,4 +17,21 @@
             </tr>
         {% endfor %}
     </table>
+{% endblock %}
+
+{% block app_content_right %}
+    <h1>Add new thing</h1>
+
+    <form action="" method="POST">
+        {{ add_form.hidden_tag() }}
+        <p>
+            {{ add_form.name.label }}{{ add_form.name(size = 25) }}
+        </p>
+        <p>
+            {{ add_form.tags.label }}{{ add_form.tags() }}
+        </p>
+        <p>
+            {{ add_form.submit() }}
+        </p>
+    </form>
 {% endblock %}
