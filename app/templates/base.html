@@ -12,13 +12,13 @@
             <a href="{{ url_for('events.add_event') }}">Add event</a>
         </div>
 
-        <div id="mid">
+        <div id="content">
             <div id="left">
                 {% include "calendar.html" %}
             </div>
 
             <div id="middle">
-                {% block app_content %}{% endblock %}
+                {% block app_content_middle %}{% endblock %}
             </div>
 
             <div id="right">
@@ -27,7 +27,7 @@
         </div>
 
         <div id="footer">
-            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            Some footer here
         </div>
     </body>
 </html>

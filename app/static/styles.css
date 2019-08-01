@@ -17,7 +17,7 @@ body {
     float: initial;
 }
 
-#mid {
+#content {
     display: flex;
     float: initial;
 }
@@ -39,7 +39,7 @@ body {
 
 table.calendar {
     border: none;
-    border-spacing: 5px;
+    border-spacing: 2px;
 }
 
 td.calendar {
@@ -52,18 +52,18 @@ td.calendar {
     vertical-align: top;
     font-size: 25pt;
     line-height: 25pt;
-    font-style: italic;
 }
 
-td.calendar_curr_month {
+td.calendar_event {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 50pt;
 }
 
-td.calendar_curr_month_holiday {
-    background-color: #6A6868;
-    color: #FFFFFF;
+td.calendar_holiday {
+    background-color: #BBBABA;
 }
 
 td.calendar_other_month {
-    background-color: #BBBABA;
-    color: #6A6868;
+    color: #BBBABA;
 }

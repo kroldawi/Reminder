@@ -1,21 +1,25 @@
 {% extends "base.html" %}
 
-{% block app_content %}    
-    
-    <h1>What's comming</h1>
-    
-    <ul>
+{% block app_content_middle %}    
+
+    <h1>What's comming</h1>    
+    <table>
         {% for event in events %}
-    
-            {{ event.name }} in {{ event.days_left }} days ({{ event.when }})
-            <form action="{{ url_for('events.delete_event', id=event.id) }}" method="POST">
-                {{ delete_form.submit() }}
-            </form>
+            <tr>
+                {% if event.days_left > 0 %}
+                    <td>{{ event.name }} in {{ event.days_left }} days ({{ event.when }})</td>
+                {% else %}
+                    <td>{{ event.name }} ({{ event.when }})</td>
+                {% endif %}
+                <td><form action="{{ url_for('events.delete_event', id=event.id) }}" method="POST">{{ delete_form.submit() }}</form></td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
+
 {% endblock %}
 
 {% block app_content_right %}
+    
     <h1>What's to do</h1>
     <ul>
         {% for thing in todos %}
@@ -24,4 +28,5 @@
             </li>
         {% endfor %}
     </ul>
+
 {% endblock %}

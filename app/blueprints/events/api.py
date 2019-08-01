@@ -20,6 +20,7 @@ def get_cal(current_date):
 @bp.route('/add_event', methods = ['GET', 'POST'])
 def add_event():
     delete_form = DeleteEventForm()
+    current_date = datetime.today()
     add_form = FORM_FACTORY.create_add_event_form(TAGS_DAO.get_tag_name_tuples())
 
     if add_form.validate_on_submit():
@@ -33,7 +34,10 @@ def add_event():
         , add_form = add_form \
         , delete_form = delete_form \
         , events = EVENTS_DAO.get_all_events() \
-        , cal = get_cal(date(2019,4,2)))
+        , cal = get_cal(current_date) \
+        , current_date = current_date \
+        , holidays = EVENTS_DAO.get_this_month_holiday_dates() \
+        , events_this_month = EVENTS_DAO.get_this_month_event_dates())
 
 
 @bp.route('/delete_event/<int:id>', methods=['POST'])

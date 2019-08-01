@@ -3,11 +3,12 @@ from datetime import datetime
 from datetime import date, timedelta
 
 from app.blueprints.tags import bp
-from app.blueprints.tags.daos import TagsDao
+from app.blueprints.tags.daos import TagsDao, EventsDao
 from app.blueprints.tags.forms import AddTagForm, DeleteTagForm
 
 
-DAO = TagsDao()
+TAGS_DAO = TagsDao()
+EVENTS_DAO = EventsDao()
 
 def get_cal(current_date):
     first_day = date(current_date.year, current_date.month, 1)
@@ -19,17 +20,21 @@ def get_cal(current_date):
 def add_tag():
     add_form = AddTagForm()
     delete_form = DeleteTagForm()
+    current_date = datetime.today()
 
     if add_form.validate_on_submit():
-        DAO.add_tag({'name': add_form.name.data})
+        TAGS_DAO.add_tag({'name': add_form.name.data})
         return redirect(url_for('tags.add_tag'))
 
     
     return render_template('tags.html' \
         , add_form = add_form \
         , delete_form = delete_form \
-        , tags = DAO.get_all_tags() \
-        , cal = get_cal(date(2019,4,2)))
+        , tags = TAGS_DAO.get_all_tags() \
+        , cal = get_cal(current_date) \
+        , current_date = current_date \
+        , holidays = EVENTS_DAO.get_this_month_holiday_dates() \
+        , events_this_month = EVENTS_DAO.get_this_month_event_dates())
 
 
 @bp.route('/delete_tag/<int:id>', methods = ['POST'])
