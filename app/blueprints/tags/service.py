@@ -11,7 +11,9 @@ TAGS_DAO = TagsDao()
 
 class TagsService():
     def get_all_tags(self):
-        return TAGS_DAO.get_all()
+        return [{'name': db_tag.name, 'id': db_tag.id} \
+                for db_tag \
+                in TAGS_DAO.get_all()]
     
     
     def add_tag(self, tag):

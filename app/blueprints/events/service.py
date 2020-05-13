@@ -6,7 +6,7 @@ EVENTS_DAO = EventsDao()
 class EventsService():
 
     def get_tag_name_tuples(self):
-        return ((tag['name'], tag['name']) for tag in TAGS_DAO.get_all())
+        return ((tag.name, tag.name) for tag in TAGS_DAO.get_all())
 
 
     def delete_event(self, id):

@@ -3,12 +3,11 @@ from datetime import datetime
 from datetime import date, timedelta
 
 from app.blueprints.things import bp
-from app.blueprints.things.daos import ThingsDao, TagsDao
+from app.blueprints.things.daos import TagsDao
 from app.blueprints.things.service import ThingsService
 from app.blueprints.things.forms import DeleteThingForm, FormFieldFactory
 
 
-THINGS_DAO = ThingsDao()
 TAGS_DAO = TagsDao()
 THINGS_SERVICE = ThingsService()
 FORM_FACTORY = FormFieldFactory()
@@ -26,14 +25,14 @@ def add_thing():
     add_form = FORM_FACTORY.create_add_thing_form(THINGS_SERVICE.get_tag_name_tuples())
 
     if add_form.validate_on_submit():
-        THINGS_DAO.add_thing(
+        THINGS_SERVICE.add_thing(
                 {'name': add_form.name.data, 'tags': add_form.tags.data})
         return redirect(url_for('things.add_thing'))
     
     return render_template('things.html' \
         , add_form = add_form \
         , delete_form = delete_form 
-        , things = THINGS_DAO.get_all_things() \
+        , things = THINGS_SERVICE.get_all_things() \
         , cal = get_cal(current_date) \
         , current_date = current_date \
         , holidays = TAGS_DAO.get_this_month_holiday_dates() \

@@ -38,31 +38,3 @@ class TagsDao():
                         else db_event.when)
 
         return dates
-
-
-class ThingsDao():
-
-    TAGS_DAO = TagsDao()
-
-    def get_all_things(self):
-        things = []
-        for db_thing in Thing.query.all():
-            tags = ' '.join(tag.name for tag in db_thing.tags)
-
-            things.append(
-                {'name': db_thing.name
-                , 'id': db_thing.id
-                , 'tags': tags})
-        
-        return things
-    
-    
-    def add_thing(self, thing):
-        db_thing = Thing.query.filter_by(name = thing['name']).first()
-
-        if not db_thing:
-            db_thing = Thing(name = thing['name'] \
-                , tags = self.TAGS_DAO.get_db_tags_by_names(thing['tags']))
-
-            db.session.add(db_thing)
-            db.session.commit()

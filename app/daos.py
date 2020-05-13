@@ -7,9 +7,7 @@ from app.models import Event, Tag, Thing
 
 class TagsDao():
     def get_all(self):
-        return [{'name': db_tag.name, 'id': db_tag.id} \
-                for db_tag \
-                in Tag.query.all()]
+        return Tag.query.all()
 
 
     def add_one(self, tag):
@@ -41,6 +39,19 @@ class EventsDao():
 
 
 class ThingsDao():
+    def get_all(self):
+        return Thing.query.all()
+    
+
+    def get_one_by_name(self, name):
+        return Thing.query.filter_by(name = name).first()
+
+
+    def add_one(self, db_thing):
+        db.session.add(db_thing)
+        db.session.commit()
+
+
     def delete_one_by_id(self, id):
         if id:
             db_thing = Thing.query.filter_by(id = id).first()
