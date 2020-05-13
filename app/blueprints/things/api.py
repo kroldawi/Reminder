@@ -4,11 +4,13 @@ from datetime import date, timedelta
 
 from app.blueprints.things import bp
 from app.blueprints.things.daos import ThingsDao, TagsDao
+from app.blueprints.things.service import ThingsService
 from app.blueprints.things.forms import DeleteThingForm, FormFieldFactory
 
 
 THINGS_DAO = ThingsDao()
 TAGS_DAO = TagsDao()
+THINGS_SERVICE = ThingsService()
 FORM_FACTORY = FormFieldFactory()
 
 def get_cal(current_date):
@@ -21,7 +23,7 @@ def get_cal(current_date):
 def add_thing():
     delete_form = DeleteThingForm()
     current_date = datetime.today()
-    add_form = FORM_FACTORY.create_add_thing_form(TAGS_DAO.get_tag_name_tuples())
+    add_form = FORM_FACTORY.create_add_thing_form(THINGS_SERVICE.get_tag_name_tuples())
 
     if add_form.validate_on_submit():
         THINGS_DAO.add_thing(
@@ -40,6 +42,6 @@ def add_thing():
 
 @bp.route('/delete_thing/<int:id>', methods = ['POST'])
 def delete_thing(id):
-    THINGS_DAO.delete_thing(id)
+    THINGS_SERVICE.delete_thing(id)
     
     return redirect(request.referrer)

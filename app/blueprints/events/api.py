@@ -3,12 +3,13 @@ from datetime import datetime
 from datetime import date, timedelta
 
 from app.blueprints.events import bp
-from app.blueprints.events.daos import EventsDao, TagsDao
+from app.blueprints.events.daos import EventsDao
+from app.blueprints.events.service import EventsService
 from app.blueprints.events.forms import AddEventForm, DeleteEventForm, FormFieldFactory
 
 
 EVENTS_DAO = EventsDao()
-TAGS_DAO = TagsDao()
+EVENTS_SERVICE = EventsService()
 FORM_FACTORY = FormFieldFactory()
 
 def get_cal(current_date):
@@ -21,7 +22,7 @@ def get_cal(current_date):
 def add_event():
     delete_form = DeleteEventForm()
     current_date = datetime.today()
-    add_form = FORM_FACTORY.create_add_event_form(TAGS_DAO.get_tag_name_tuples())
+    add_form = FORM_FACTORY.create_add_event_form(EVENTS_SERVICE.get_tag_name_tuples())
 
     if add_form.validate_on_submit():
         EVENTS_DAO.add_event({'name': add_form.name.data \
@@ -42,6 +43,6 @@ def add_event():
 
 @bp.route('/delete_event/<int:id>', methods=['POST'])
 def delete_event(id):
-    EVENTS_DAO.delete_event(id)
+    EVENTS_SERVICE.delete_event(id)
 
     return redirect(request.referrer)

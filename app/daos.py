@@ -5,6 +5,50 @@ from sqlalchemy import or_
 from app import db
 from app.models import Event, Tag, Thing
 
+class TagsDao():
+    def get_all(self):
+        return [{'name': db_tag.name, 'id': db_tag.id} \
+                for db_tag \
+                in Tag.query.all()]
+
+
+    def add_one(self, tag):
+        db_tag = Tag.query.filter_by(name = tag['name']).first()
+
+        if not db_tag:
+            db_tag = Tag(name = tag['name'])
+            db.session.add(db_tag)
+            db.session.commit()
+
+
+    def delete_one_by_id(self, id):
+        if id:
+            db_tag = Tag.query.filter_by(id = id).first()
+            
+            if db_tag:
+                db.session.delete(db_tag)
+                db.session.commit()
+
+
+class EventsDao():
+    def delete_one_by_id(self, id):
+        if id:
+            db_event = Event.query.filter_by(id = id).first()
+
+            if db_event:
+                db.session.delete(db_event)
+                db.session.commit()
+
+
+class ThingsDao():
+    def delete_one_by_id(self, id):
+        if id:
+            db_thing = Thing.query.filter_by(id = id).first()
+            
+            if db_thing:
+                db.session.delete(db_thing)
+                db.session.commit()
+
 
 class IndexDao():
 

@@ -10,10 +10,7 @@ class TagsDao():
 
     def get_db_tags_by_names(self, tag_names):
         return [Tag.query.filter_by(name = name).first() for name in tag_names]
-    
-
-    def get_tag_name_tuples(self):
-        return [(db_tag.name, db_tag.name) for db_tag in Tag.query.all()]
+        
     
     def get_this_month_holiday_dates(self):
         curr_year = date.today().year
@@ -69,12 +66,3 @@ class ThingsDao():
 
             db.session.add(db_thing)
             db.session.commit()
-
-
-    def delete_thing(self, id):
-        if id:
-            db_thing = Thing.query.filter_by(id = id).first()
-            
-            if db_thing:
-                db.session.delete(db_thing)
-                db.session.commit()
