@@ -1,8 +1,9 @@
-from app.daos import TagsDao, ThingsDao
+from app.daos import TagsDao, ThingsDao, IndexDao
 from app.models import Thing
 
 TAGS_DAO = TagsDao()
 THINGS_DAO = ThingsDao()
+INDEX_DAO = IndexDao()
 
 class ThingsService():
 
@@ -34,3 +35,11 @@ class ThingsService():
 
     def delete_thing(self, id):
         THINGS_DAO.delete_one_by_id(id)
+    
+
+    def get_holiday_dates(self):
+        return INDEX_DAO.get_holiday_dates()
+
+
+    def get_oncoming_event_dates(self):
+        return INDEX_DAO.get_oncoming_event_dates()

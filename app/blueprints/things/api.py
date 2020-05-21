@@ -3,12 +3,10 @@ from datetime import datetime
 from datetime import date, timedelta
 
 from app.blueprints.things import bp
-from app.blueprints.things.daos import TagsDao
 from app.blueprints.things.service import ThingsService
 from app.blueprints.things.forms import DeleteThingForm, FormFieldFactory
 
 
-TAGS_DAO = TagsDao()
 THINGS_SERVICE = ThingsService()
 FORM_FACTORY = FormFieldFactory()
 
@@ -35,8 +33,8 @@ def add_thing():
         , things = THINGS_SERVICE.get_all_things() \
         , cal = get_cal(current_date) \
         , current_date = current_date \
-        , holidays = TAGS_DAO.get_this_month_holiday_dates() \
-        , events_this_month = TAGS_DAO.get_this_month_event_dates())
+        , holidays = THINGS_SERVICE.get_holiday_dates() \
+        , events_this_month = THINGS_SERVICE.get_oncoming_event_dates())
 
 
 @bp.route('/delete_thing/<int:id>', methods = ['POST'])
