@@ -3,12 +3,12 @@ from datetime import datetime
 from datetime import date, timedelta
 
 from app.blueprints.events import bp
-from app.blueprints.events.daos import EventsDao
+from app.blueprints.events.daos import TagsDao
 from app.blueprints.events.service import EventsService
 from app.blueprints.events.forms import AddEventForm, DeleteEventForm, FormFieldFactory
 
 
-EVENTS_DAO = EventsDao()
+TAGS_DAO = TagsDao()
 EVENTS_SERVICE = EventsService()
 FORM_FACTORY = FormFieldFactory()
 
@@ -25,7 +25,7 @@ def add_event():
     add_form = FORM_FACTORY.create_add_event_form(EVENTS_SERVICE.get_tag_name_tuples())
 
     if add_form.validate_on_submit():
-        EVENTS_DAO.add_event({'name': add_form.name.data \
+        EVENTS_SERVICE.add_event({'name': add_form.name.data \
             , 'when': add_form.when.data \
             , 'recurring': add_form.recurring.data \
             , 'tags': add_form.tags.data})
@@ -34,11 +34,11 @@ def add_event():
     return render_template('events.html' \
         , add_form = add_form \
         , delete_form = delete_form \
-        , events = EVENTS_DAO.get_all_events() \
+        , events = EVENTS_SERVICE.get_all_events() \
         , cal = get_cal(current_date) \
         , current_date = current_date \
-        , holidays = EVENTS_DAO.get_this_month_holiday_dates() \
-        , events_this_month = EVENTS_DAO.get_this_month_event_dates())
+        , holidays = TAGS_DAO.get_this_month_holiday_dates() \
+        , events_this_month = TAGS_DAO.get_this_month_event_dates())
 
 
 @bp.route('/delete_event/<int:id>', methods=['POST'])

@@ -7,10 +7,17 @@ tag_event_assoc = db.Table('tag_event_assoc' \
     , db.Column('tag', db.Integer, db.ForeignKey('tag.id'), nullable = True) \
     , db.Column('event', db.Integer, db.ForeignKey('event.id'), nullable = True))
 
+
 tag_thing_assoc = db.Table('tag_thing_assoc' \
     , db.Model.metadata \
     , db.Column('tag', db.Integer, db.ForeignKey('tag.id'), nullable = True) \
     , db.Column('thing', db.Integer, db.ForeignKey('thing.id'), nullable = True))
+
+
+tag_document_assoc = db.Table('tag_document_assoc' \
+    , db.Model.metadata \
+    , db.Column('tag', db.Integer, db.ForeignKey('tag.id'), nullable = True) \
+    , db.Column('document', db.Integer, db.ForeignKey('document.id'), nullable = True))
 
 
 class Tag(db.Model):
@@ -26,6 +33,9 @@ class Tag(db.Model):
         , back_populates = 'tags')
     things = db.relationship('Thing' \
         , secondary = tag_thing_assoc \
+        , back_populates = 'tags')
+    documents = db.relationship('Document' \
+        , secondary = tag_document_assoc \
         , back_populates = 'tags')
 
 
@@ -53,3 +63,15 @@ class Thing(db.Model):
     tags = db.relationship('Tag' \
         , secondary = tag_thing_assoc \
         , back_populates = 'things')
+
+
+class Document(db.Model):
+    __tablename__ = 'document'
+    id = db.Column(db.Integer, primary_key = True)
+    ts = db.Column(db.DateTime, default = datetime.utcnow)
+    
+    name = db.Column(db.String(64))
+    
+    tags = db.relationship('Tag' \
+        , secondary = tag_document_assoc \
+        , back_populates = 'documents')

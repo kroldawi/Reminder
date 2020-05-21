@@ -3,7 +3,7 @@ from datetime import date
 from sqlalchemy import or_
 
 from app import db
-from app.models import Event, Tag, Thing
+from app.models import Event, Tag, Thing, Document
 
 class TagsDao():
     def get_all(self):
@@ -29,6 +29,19 @@ class TagsDao():
 
 
 class EventsDao():
+    def get_all(self):
+        return Event.query.all()
+
+
+    def get_one_by_name(self, name):
+        return Event.query.filter_by(name = name).first()
+
+
+    def add_one(self, db_event):
+        db.session.add(db_event)
+        db.session.commit()
+
+
     def delete_one_by_id(self, id):
         if id:
             db_event = Event.query.filter_by(id = id).first()
@@ -58,6 +71,30 @@ class ThingsDao():
             
             if db_thing:
                 db.session.delete(db_thing)
+                db.session.commit()
+
+
+class DocumentsDao():
+
+    def get_all(self):
+        return Document.query.all()
+    
+
+    def get_one_by_name(self, name):
+        return Document.query.filter_by(name = name).first()
+    
+
+    def add_one(self, db_document):
+        db.session.add(db_document)
+        db.session.commit()
+
+    
+    def delete_one_by_id(self, id):
+        if id:
+            db_document = Document.query.filter_by(id = id).first()
+            
+            if db_document:
+                db.session.delete(db_document)
                 db.session.commit()
 
 

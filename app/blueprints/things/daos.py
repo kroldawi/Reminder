@@ -8,10 +8,6 @@ from app.models import Thing, Tag, Event
 
 class TagsDao():
 
-    def get_db_tags_by_names(self, tag_names):
-        return [Tag.query.filter_by(name = name).first() for name in tag_names]
-        
-    
     def get_this_month_holiday_dates(self):
         curr_year = date.today().year
         db_tag = Tag.query.filter_by(name = 'Holiday').first()
