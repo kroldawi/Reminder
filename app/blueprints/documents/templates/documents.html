@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block app_content_middle %}
+    <h1>What documents we have</h1>
+    <table>
+        <tr><th>Id</th><th>Name</th><th>Tags</th></tr>
+        {% for document in documents %}
+            <tr>
+                <td>{{ document.id }}</td>
+                <td>{{ document.name }}</td>
+                <td>{{ document.tags }}</td>
+                <td>
+                    <form action="{{ url_for('documents.delete_document', id=document.id) }}" method="POST">
+                        {{ delete_form.submit() }}
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block app_content_right %}
+    <h1>Add new document</h1>
+
+    <form action="" method="POST">
+        {{ add_form.hidden_tag() }}
+        <p>{{ add_form.name.label }}{{ add_form.name(size = 25) }}</p>
+        <p>{{ add_form.tags.label }}{{ add_form.tags() }}</p>
+        <p>{{ add_form.submit() }}</p>
+    </form>
+{% endblock %}
