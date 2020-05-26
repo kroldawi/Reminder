@@ -39,6 +39,6 @@ def add_thing():
 
 @bp.route('/delete_thing/<int:id>', methods = ['POST'])
 def delete_thing(id):
-    THINGS_SERVICE.delete_thing(id)
+    THINGS_SERVICE.soft_delete_thing(id)
     
     return redirect(request.referrer)

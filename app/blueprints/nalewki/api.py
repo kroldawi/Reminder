@@ -3,6 +3,10 @@ from datetime import datetime
 from datetime import date, timedelta
 
 from app.blueprints.nalewki import bp
+from app.blueprints.nalewki.service import NalewkiService
+
+
+NALEWKI_SERVICE = NalewkiService()
 
 
 def get_cal(current_date):
@@ -16,8 +20,8 @@ def nalewki():
     current_date = datetime.today()
 
     return render_template('nalewki.html' \
-        , events = [] \
+        , nalewki = NALEWKI_SERVICE.get_all_nalewki_test() \
         , cal = get_cal(current_date) \
         , current_date = current_date \
-        , holidays = [] \
-        , events_this_month = [])
+        , holidays = NALEWKI_SERVICE.get_holiday_dates() \
+        , events_this_month = NALEWKI_SERVICE.get_oncoming_event_dates())

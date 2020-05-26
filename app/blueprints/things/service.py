@@ -14,27 +14,32 @@ class ThingsService():
     def get_all_things(self):
         things = []
         for db_thing in THINGS_DAO.get_all():
-            tags = ' '.join(tag.name for tag in db_thing.tags)
-
-            things.append(
-                {'name': db_thing.name
-                , 'id': db_thing.id
-                , 'tags': tags})
+            #if not db_thing.deleted or db_thing.deleted == False:
+                tags = ' '.join(tag.name for tag in db_thing.tags)
+            
+                things.append(
+                    {'name': db_thing.name
+                    , 'id': db_thing.id
+                    , 'created': db_thing.ts
+                    , 'tags': tags
+                    , 'deleted': db_thing.deleted})
         
         return things
     
 
     def add_thing(self, thing):
-        if thing['name'] and not THINGS_DAO.get_one_by_name(thing['name']):
-
+        if thing['name'] :
             db_tags = list(filter(lambda tag: tag.name in thing['tags'] \
                 , TAGS_DAO.get_all()))
             
             THINGS_DAO.add_one(Thing(name = thing['name'], tags = db_tags))
 
 
-    def delete_thing(self, id):
-        THINGS_DAO.delete_one_by_id(id)
+    def soft_delete_thing(self, id):
+        db_thing = THINGS_DAO.get_one_by_id(id)
+        if db_thing:
+            db_thing.deleted = True
+            THINGS_DAO.update_one(db_thing)
     
 
     def get_holiday_dates(self):

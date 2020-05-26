@@ -3,7 +3,15 @@
 {% block app_content_middle %}
     <h1>What nalewki we have</h1>
     <table>
-        <tr><th>Id</th><th>Name</th><th>When</th>
+        <tr><th>Id</th><th>Name</th><th>When</th></tr>
+        {% for nalewka in nalewki %}
+            <tr>
+                <td>{{ nalewka.name }}</td>
+                <td>{{ nalewka.tags }}</td>
+                <td>{{ nalewka.children }}</td>
+            </tr>
+        {% endfor %}
+        
             <tr>
                 <td>???</td>
                 <td>Krupnik Wytrawny</td>

@@ -57,6 +57,8 @@ class Thing(db.Model):
     __tablename__ = 'thing'
     id = db.Column(db.Integer, primary_key = True)
     ts = db.Column(db.DateTime, default = datetime.utcnow)
+    updated_ts = db.Column(db.DateTime, default = datetime.utcnow, onupdate=datetime.utcnow)
+    deleted = db.Column(db.Boolean, default = False)
     
     name = db.Column(db.String(64))
     
@@ -71,6 +73,9 @@ class Document(db.Model):
     ts = db.Column(db.DateTime, default = datetime.utcnow)
     
     name = db.Column(db.String(64))
+    parent_id = db.Column(db.Integer, db.ForeignKey('document.id'))
+    
+    children = db.relationship('Document')
     
     tags = db.relationship('Tag' \
         , secondary = tag_document_assoc \

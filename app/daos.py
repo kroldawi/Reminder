@@ -54,6 +54,10 @@ class EventsDao():
 class ThingsDao():
     def get_all(self):
         return Thing.query.all()
+
+    
+    def get_one_by_id(self, id):
+        return Thing.query.filter_by(id = id).first()
     
 
     def get_one_by_name(self, name):
@@ -63,6 +67,11 @@ class ThingsDao():
     def add_one(self, db_thing):
         db.session.add(db_thing)
         db.session.commit()
+
+
+    def update_one(self, db_thing):
+        if self.get_one_by_id(db_thing.id):
+            self.add_one(db_thing)
 
 
     def delete_one_by_id(self, id):
@@ -100,9 +109,15 @@ class DocumentsDao():
 
 class IndexDao():
 
-    def get_todos(self):
+    def get_todos(self, current_date):
         db_tag = Tag.query.filter_by(name = 'TODO').first()
-        return [{'name': thing.name} for thing in db_tag.things]
+        #TODO: none for updated_ts
+        db_todos = list(filter(lambda thing: not thing.deleted or not thing.updated_ts or thing.updated_ts.date() == date.today()
+                , db_tag.things))
+        return [{'name': thing.name
+            , 'id': thing.id
+            , 'deleted': thing.deleted} 
+            for thing in db_todos]
     
 
     def get_holiday_dates(self):

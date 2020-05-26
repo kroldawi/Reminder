@@ -23,13 +23,30 @@ class DocumentsService():
         return documents
     
 
+    def get_document_by_id(self, id):
+        for db_document in DOCUMENTS_DAO.get_all():
+            if (db_document.id == id):
+                return {
+                    'name': db_document.name
+                    , 'parent_id': db_document.parent_id
+                    , 'children': db_document.children
+                }
+
+
+        #TODO: Add actual return
+        return
+    
+
     def add_document(self, document):
-        if document['name'] and not DOCUMENTS_DAO.get_one_by_name(document['name']):
+        if document['name']:
 
             db_tags = list(filter(lambda tag: tag.name in document['tags'] \
                 , TAGS_DAO.get_all()))
             
-            DOCUMENTS_DAO.add_one(Document(name = document['name'], tags = db_tags))
+            DOCUMENTS_DAO.add_one(Document(
+                name = document['name']
+                , parent_id = document['parent_id']
+                , tags = db_tags))
 
 
     def delete_document(self, id):

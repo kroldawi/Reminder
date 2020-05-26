@@ -16,8 +16,10 @@ class EventsService():
         for db_event in EVENTS_DAO.get_all():
             db_tags = ' '.join(tag.name for tag in db_event.tags)
             events.append(
-                {'name': db_event.name \
-                , 'id': db_event.id \
+                {'name': db_event.name
+                , 'id': db_event.id
+                , 'when': db_event.when
+                , 'recurring': db_event.recurring
                 , 'tags': db_tags})
         
         return events

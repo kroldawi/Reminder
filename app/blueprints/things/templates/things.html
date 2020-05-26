@@ -3,12 +3,13 @@
 {% block app_content_middle %}
     <h1>What things we have</h1>
     <table>
-        <tr><th>Id</th><th>Name</th><th>Tags</th></tr>
+        <tr><th>Id</th><th>Name</th><th>Tags</th><th>Deleted</th></tr>
         {% for thing in things %}
             <tr>
-                <td>{{ thing.id }}</td>
+                <td>{{ thing.id}}</td>
                 <td>{{ thing.name }}</td>
                 <td>{{ thing.tags }}</td>
+                <td>{{ thing.deleted }}</td>
                 <td>
                     <form action="{{ url_for('.delete_thing', id=thing.id) }}" method="POST">
                         {{ delete_form.submit() }}

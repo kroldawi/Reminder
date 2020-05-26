@@ -25,7 +25,7 @@ def index():
 
     return render_template('index.html' \
         , events = DAO.get_oncoming_events() \
-        , todos = DAO.get_todos() \
+        , todos = DAO.get_todos(current_date) \
         , cal = get_cal(current_date) \
         , current_date = current_date \
         , holidays = DAO.get_holiday_dates() \

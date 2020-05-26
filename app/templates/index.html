@@ -21,12 +21,17 @@
 {% block app_content_right %}
     
     <h1>What's to do</h1>
-    <ul>
+    <table>
         {% for thing in todos %}
-            <li>
-                {{ thing.name }}
-            </li>
+            <tr>
+                {% if thing.deleted %}
+                    <td><del>{{ thing.name }}</del></td>
+                {% else %}
+                    <td>{{ thing.name }}</td>
+                {% endif %}
+                <td><form action="{{ url_for('things.delete_thing', id=thing.id) }}" method="POST">{{ delete_form.submit() }}</form></td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
 
 {% endblock %}
