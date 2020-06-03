@@ -22,18 +22,28 @@ body {
     float: initial;
 }
 
-#left {
+#three_cols_left {
     width: 45%;
     float: left;
 }
 
-#middle {
+#three_cols_middle {
     width: 35%;
     float: left;
 }
 
-#right {
+#three_cols_right {
     width: 20%;
+    float: left;
+}
+
+#two_cols_left {
+    width: 45%;
+    float: left;
+}
+
+#two_cols_right {
+    width: 65%;
     float: left;
 }
 

@@ -111,9 +111,9 @@ class IndexDao():
 
     def get_todos(self, current_date):
         db_tag = Tag.query.filter_by(name = 'TODO').first()
-        #TODO: none for updated_ts
-        db_todos = list(filter(lambda thing: not thing.deleted or not thing.updated_ts or thing.updated_ts.date() == date.today()
+        db_todos = list(filter(lambda thing: not thing.deleted or thing.updated_ts.date() == date.today()
                 , db_tag.things))
+
         return [{'name': thing.name
             , 'id': thing.id
             , 'deleted': thing.deleted} 

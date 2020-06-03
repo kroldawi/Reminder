@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+        <title>Reminder</title>
+    </head>
+
+    <body>
+        <div id="header">
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('tags.add_tag') }}">Add tag</a>
+            <a href="{{ url_for('things.add_thing') }}">Add thing</a>
+            <a href="{{ url_for('events.add_event') }}">Add event</a>
+            <a href="{{ url_for('documents.add_document') }}">Add document</a>
+            <a href="{{ url_for('nalewki.nalewki') }}">Nalewki</a>
+        </div>
+
+        <div id="content">
+            <div id="two_cols_left">
+                {% include "calendar.html" %}
+            </div>
+
+            <div id="two_cols_right">
+                {% block app_content_right %}{% endblock %}
+            </div>
+        </div>
+
+        <div id="footer">
+            Some footer here
+        </div>
+    </body>
+</html>

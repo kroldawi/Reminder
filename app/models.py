@@ -73,7 +73,8 @@ class Document(db.Model):
     ts = db.Column(db.DateTime, default = datetime.utcnow)
     
     name = db.Column(db.String(64))
-    parent_id = db.Column(db.Integer, db.ForeignKey('document.id'))
+    value = db.Column(db.String(512), nullable = True)
+    parent_id = db.Column(db.Integer, db.ForeignKey('document.id'), nullable = True)
     
     children = db.relationship('Document')
     

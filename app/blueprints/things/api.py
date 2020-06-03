@@ -4,7 +4,7 @@ from datetime import date, timedelta
 
 from app.blueprints.things import bp
 from app.blueprints.things.service import ThingsService
-from app.blueprints.things.forms import DeleteThingForm, FormFieldFactory
+from app.blueprints.things.forms import DeleteThingForm, PurgeThingForm, FormFieldFactory
 
 
 THINGS_SERVICE = ThingsService()
@@ -30,6 +30,22 @@ def add_thing():
     return render_template('things.html' \
         , add_form = add_form \
         , delete_form = delete_form 
+        , things = THINGS_SERVICE.get_undeleted_things() \
+        , cal = get_cal(current_date) \
+        , current_date = current_date \
+        , holidays = THINGS_SERVICE.get_holiday_dates() \
+        , events_this_month = THINGS_SERVICE.get_oncoming_event_dates())
+
+
+@bp.route('/manage_things', methods = ['GET'])
+def manage_things():
+    delete_form = DeleteThingForm()
+    purge_form = PurgeThingForm()
+    current_date = datetime.today()
+
+    return render_template('things_dictionary.html' \
+        , delete_form = delete_form 
+        , purge_form = purge_form
         , things = THINGS_SERVICE.get_all_things() \
         , cal = get_cal(current_date) \
         , current_date = current_date \
@@ -38,7 +54,14 @@ def add_thing():
 
 
 @bp.route('/delete_thing/<int:id>', methods = ['POST'])
-def delete_thing(id):
+def soft_delete_thing(id):
     THINGS_SERVICE.soft_delete_thing(id)
+    
+    return redirect(request.referrer)
+
+
+@bp.route('/purge_thing/<int:id>', methods = ['POST'])
+def hard_delete_thing(id):
+    THINGS_SERVICE.hard_delete_thing(id)
     
     return redirect(request.referrer)

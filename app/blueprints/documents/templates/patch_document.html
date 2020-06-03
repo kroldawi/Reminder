@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "two_cols_base.html" %}
 
-{% block app_content_middle %}
+{% block app_content_right %}
     <h1>What do we change?</h1>
 
     <h2>{{ document.name }}</h2>
@@ -15,7 +15,7 @@
 
         {% for temp in child.children %}
             <h4>
-                {{ temp.name }}
+                {{ temp.name }}: {{ temp.value }}
                 <form action="{{ url_for('documents.delete_document', id=temp.id) }}" method="POST">
                     {{ delete_form.submit() }}
                 </form>
@@ -25,6 +25,7 @@
         <form action="{{ url_for('documents.patch_document', id=child.id) }}" method="POST">
             {{ add_form.hidden_tag() }}
             <p>{{ add_form.name.label }}{{ add_form.name(size = 25) }}</p>
+            <p>{{ add_form.value.label }}{{ add_form.value(size = 25) }}</p>
             <p>{{ add_form.submit() }}</p>
         </form>
     {% endfor %}
@@ -36,8 +37,4 @@
         <p>{{ add_form.submit() }}</p>
     </form>
     
-{% endblock %}
-
-{% block app_content_right %}
-    <h1>Placeholder</h1>
 {% endblock %}

@@ -13,6 +13,7 @@ class FormFieldFactory():
         
 class AddDocumentForm(FlaskForm):
     name = StringField('Name', validators = [DataRequired()])
+    value = StringField('Value')
     tags = SelectMultipleField('Tags', choices = [])
     submit = SubmitField('Add')
 

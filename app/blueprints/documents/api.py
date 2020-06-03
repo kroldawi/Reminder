@@ -26,7 +26,8 @@ def add_document():
 
     if add_form.validate_on_submit():
         DOCUMENTS_SERVICE.add_document({
-            'name': add_form.name.data \
+            'name': add_form.name.data
+            , 'value': add_form.value.data
             , 'tags': add_form.tags.data
             , 'parent_id': None})
         return redirect(url_for('documents.add_document'))
@@ -48,7 +49,9 @@ def patch_document(id):
     add_form = FORM_FACTORY.create_add_document_form(DOCUMENTS_SERVICE.get_tag_name_tuples())
 
     if add_form.validate_on_submit():
-        DOCUMENTS_SERVICE.add_document({'name': add_form.name.data \
+        DOCUMENTS_SERVICE.add_document(
+            {'name': add_form.name.data
+            , 'value': add_form.value.data
             , 'parent_id': id
             , 'tags': []})
         return redirect(request.referrer)

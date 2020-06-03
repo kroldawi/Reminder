@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "three_cols_base.html" %}
 
 {% block app_content_middle %}    
 
@@ -29,7 +29,7 @@
                 {% else %}
                     <td>{{ thing.name }}</td>
                 {% endif %}
-                <td><form action="{{ url_for('things.delete_thing', id=thing.id) }}" method="POST">{{ delete_form.submit() }}</form></td>
+                <td><form action="{{ url_for('things.soft_delete_thing', id=thing.id) }}" method="POST">{{ delete_form.submit() }}</form></td>
             </tr>
         {% endfor %}
     </table>

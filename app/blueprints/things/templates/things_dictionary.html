@@ -1,0 +1,35 @@
+{% extends "two_cols_base.html" %}
+
+{% block app_content_right %}
+    <h1>What things we have</h1>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Tags</th>
+            <th>Deleted</th>
+            <th>Created</th>
+            <th>Updated</th>
+        </tr>
+        {% for thing in things %}
+            <tr>
+                <td>{{ thing.id}}</td>
+                <td>{{ thing.name }}</td>
+                <td>{{ thing.tags }}</td>
+                <td>{{ thing.deleted }}</td>
+                <td>{{ thing.created }}</td>
+                <td>{{ thing.updated }}</td>
+                <td>
+                    <form action="{{ url_for('.soft_delete_thing', id=thing.id) }}" method="POST">
+                        {{ delete_form.submit() }}
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ url_for('.hard_delete_thing', id=thing.id) }}" method="POST">
+                        {{ purge_form.submit() }}
+                    </form>
+                </td>                
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

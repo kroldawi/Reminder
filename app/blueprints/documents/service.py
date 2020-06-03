@@ -11,16 +11,15 @@ class DocumentsService():
     
 
     def get_all_documents(self):
-        documents = []
-        for db_document in DOCUMENTS_DAO.get_all():
-            tags = ' '.join(tag.name for tag in db_document.tags)
-
-            documents.append(
-                {'name': db_document.name
+        return [
+            {
+                'name': db_document.name
+                , 'value': db_document.value
                 , 'id': db_document.id
-                , 'tags': tags})
-        
-        return documents
+                , 'tags': ' '.join(tag.name for tag in db_document.tags)
+            }
+            for db_document in DOCUMENTS_DAO.get_all()
+        ]
     
 
     def get_document_by_id(self, id):
@@ -28,6 +27,7 @@ class DocumentsService():
             if (db_document.id == id):
                 return {
                     'name': db_document.name
+                    , 'value': db_document.value
                     , 'parent_id': db_document.parent_id
                     , 'children': db_document.children
                 }
@@ -45,6 +45,7 @@ class DocumentsService():
             
             DOCUMENTS_DAO.add_one(Document(
                 name = document['name']
+                , value = document['value']
                 , parent_id = document['parent_id']
                 , tags = db_tags))
 

@@ -19,3 +19,7 @@ class AddThingForm(FlaskForm):
 
 class DeleteThingForm(FlaskForm):
     submit = SubmitField('Delete')
+
+
+class PurgeThingForm(FlaskForm):
+    submit = SubmitField('Purge')
