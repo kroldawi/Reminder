@@ -18,7 +18,8 @@ class DocumentsService():
                 , 'id': db_document.id
                 , 'tags': ' '.join(tag.name for tag in db_document.tags)
             }
-            for db_document in DOCUMENTS_DAO.get_all()
+            for db_document 
+            in list(filter(lambda db_document: db_document.tags, DOCUMENTS_DAO.get_all()))
         ]
     
 

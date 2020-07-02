@@ -9,6 +9,7 @@ from app.daos import TagsDao
 
 TAGS_DAO = TagsDao()
 
+
 class TagsService():
     def get_all_tags(self):
         return [{'name': db_tag.name, 'id': db_tag.id} \

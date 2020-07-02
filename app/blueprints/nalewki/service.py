@@ -13,11 +13,24 @@ class NalewkiService():
             , DOCUMENT_DAO.get_all()))
 
     
-    def get_all_nalewki_test(self):
-        nalewki = list(filter(lambda db_doc: "Nalewka" in [db_tag.name for db_tag in db_doc.tags] \
-            , DOCUMENT_DAO.get_all()))
+    def get_all_nalewki_basics(self):
+        return [{'name': nalewka.name, 'id': nalewka.id} for nalewka in self.get_all_nalewki()]
+    
+
+    def get_nalewka_by_id(self, id):
+        for nalewka in self.get_all_nalewki():
+            if nalewka.id == id:
+                ingredients = list(filter(lambda child: child.name == 'Ingredients', nalewka.children))[0].children
+                timeline = list(filter(lambda child: child.name == 'Timeline', nalewka.children))[0].children
+                notes = list(filter(lambda child: child.name == 'Notes', nalewka.children))[0].children
+                recipe = []
+                return {'name': nalewka.name
+                    , 'timeline': [{'name': entry.name, 'value': entry.value} for entry in timeline]
+                    , 'ingredients': [{'name': entry.name, 'value': entry.value} for entry in ingredients]
+                    , 'notes': [{'name': entry.name, 'value': entry.value} for entry in notes]
+                    , 'recipe': [{'name': entry.name, 'value': entry.value} for entry in recipe]}
         
-        return [{'name': nalewka.name} for nalewka in nalewki]
+        return
 
     
     def get_holiday_dates(self):

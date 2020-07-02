@@ -6,22 +6,12 @@
         <tr><th>Id</th><th>Name</th><th>When</th></tr>
         {% for nalewka in nalewki %}
             <tr>
-                <td>{{ nalewka.name }}</td>
+                <td><a href="{{ url_for('.nalewka', id = nalewka.id) }}">{{ nalewka.name }}</a></td>
                 <td>{{ nalewka.tags }}</td>
                 <td>{{ nalewka.children }}</td>
             </tr>
         {% endfor %}
         
-            <tr>
-                <td>???</td>
-                <td>Krupnik Wytrawny</td>
-                <td>07/14/2018</td>
-            </tr>
-            <tr>
-                <td>???</td>
-                <td>Limoncello</td>
-                <td>07/16/2018</td>
-            </tr>
             <tr>
                 <td>???</td>
                 <td>Strawberry 1</td>
@@ -68,11 +58,6 @@
                 <td>02/23/2020</td>
             </tr>
             <tr>
-                <td>???</td>
-                <td>Cardamome tincture</td>
-                <td>12/18/2019</td>
-            </tr>
-            <tr>
                 <td>1/2020</td>
                 <td>Cinnamon tincture</td>
                 <td>01/07/2020</td>
@@ -81,11 +66,6 @@
                 <td>1/1/2020 & 1/2/2020</td>
                 <td>Cramberry</td>
                 <td>02/09/2020</td>
-            </tr>
-            <tr>
-                <td>???</td>
-                <td>Miodula</td>
-                <td>???</td>
             </tr>
             <tr>
                 <td>???</td>
@@ -112,14 +92,37 @@
                 <td>Ajerkoniak</td>
                 <td>04/02/2020</td>
             </tr>
-            <tr>
-                <td>???</td>
-                <td>Porterowka tincture</td>
-                <td>???</td>
-            </tr>
     </table>
 {% endblock %}
 
 {% block app_content_right %}
-    <h1>Placeholder</h1>
+    <h1>{{ nalewka['name'] }}</h1>
+    
+    <h2>Ingredients</h2>
+    <ul>
+        {% for ingredient in nalewka['ingredients'] %}
+            <li>{{ ingredient.name }}: {{ ingredient.value }}</li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Timeline</h2>
+    <ul>
+        {% for timeline in nalewka['timeline'] %}
+            <li>{{ timeline.name }}: {{ timeline.value }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Recipe</h2>
+    <ol>
+        {% for recipe in nalewka['recipe'] %}
+            <li>{{ recipe.name }}: {{ recipe.value }}</li>
+        {% endfor %}
+    </ol>
+
+    <h2>Notes</h2>
+    <ol>
+        {% for note in nalewka['notes'] %}
+            <li>{{ note.name }}: {{ note.value }}</li>
+        {% endfor %}
+    </ol>
 {% endblock %}
